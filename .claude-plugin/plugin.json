@@ -1,0 +1,21 @@
+{
+  "name": "shipatmidnight-kit",
+  "displayName": "Ship at Midnight kit",
+  "version": "0.1.0",
+  "description": "A studio workflow for Claude Code: design-first site process, security, abuse and legal passes, CI review, skill intake scanning, and model-pinned review/planning agents.",
+  "author": {
+    "name": "Shreyas Sawant",
+    "url": "https://github.com/shreyassaw5394"
+  },
+  "repository": "https://github.com/shreyassaw5394/shipatmidnight-kit",
+  "license": "MIT",
+  "keywords": [
+    "workflow",
+    "design",
+    "security",
+    "legal",
+    "review",
+    "agents"
+  ],
+  "icon": "./assets/icon.png"
+}

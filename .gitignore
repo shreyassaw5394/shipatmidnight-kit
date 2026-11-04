@@ -1,0 +1,4 @@
+skill-audit-reports/
+.DS_Store
+node_modules/
+.env*
