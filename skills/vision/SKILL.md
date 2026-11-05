@@ -48,8 +48,8 @@ Take the product name from the paragraph (or propose one short, plain name and r
 
 Run after the last GSD phase, in sequence, each as one agent with the repo path and the relevant checklist:
 1. `ecc-code-reviewer` on the full diff since the first commit; apply fixes that are clear, list the rest.
-2. `${CLAUDE_PLUGIN_ROOT}/skills/security-hardening/SKILL.md`, plus `abuse-prevention` if there are endpoints or URL fetching, plus `gha-security-review` if `.github/workflows` exists. Then `gitleaks git .` and `gitleaks dir .` (if gitleaks is missing, record "secret scan not run").
-3. `${CLAUDE_PLUGIN_ROOT}/skills/legal-compliance/SKILL.md`: licences and notices in every distributable, claims audit of every README and page, "free, as-is" wording, consent before any tracking, accessibility basics. Items that do not apply get "not applicable because ...".
+2. `${CLAUDE_PLUGIN_ROOT}/skills/security-hardening/SKILL.md`, plus `abuse-prevention` if there are endpoints or URL fetching, plus `gha-security-review` if `.github/workflows` exists. For a full audit (the owner asked for one, or the product handles accounts, payments or user data) run `${CLAUDE_PLUGIN_ROOT}/skills/security-audit/SKILL.md` in full audit mode instead of the short pass, and record its report location. Then `gitleaks git .` and `gitleaks dir .` (if gitleaks is missing, record "secret scan not run").
+3. `${CLAUDE_PLUGIN_ROOT}/skills/legal-compliance/SKILL.md`: licences and notices in every distributable, claims audit of every README and page, "free, as-is" wording, consent before any tracking, accessibility basics. Then, before any public release, use the matching parts of `${CLAUDE_PLUGIN_ROOT}/skills/legal-suite/SKILL.md` (OSS licence review, name clearance, marketing-claims review, launch review; PIA if personal data). Items that do not apply get "not applicable because ...".
 Record each finding as fixed, accepted-by-default (say why), or owner decision.
 
 ## Step 4: face and words

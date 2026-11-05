@@ -7,9 +7,9 @@ This gate was produced by a workflow, not a release authority. Nothing below has
 - build: `<cmd>` → <pass/fail>
 - tests: `<cmd>` → <N passed, M failed; pre-existing failures listed separately>
 - code review (ecc-code-reviewer): <N findings fixed, M listed below>
-- security pass (security-hardening / abuse-prevention / gha-security-review): <what ran, what was fixed>
+- security pass (security-hardening / abuse-prevention / gha-security-review; security-audit when a full audit ran): <what ran, what was fixed>
 - secret scan: `gitleaks git .` / `gitleaks dir .` → <result, or "not run: gitleaks missing">
-- legal pass (legal-compliance): <licences in distributables, claims audit, as-is wording, consent, accessibility basics>
+- legal pass (legal-compliance + legal-suite parts used): <licences in distributables, claims audit, as-is wording, consent, accessibility basics>
 - name check (scripted search, <date>): <npm / PyPI / GitHub / web results>
 
 ## 2. Unverified (this flow cannot check these)

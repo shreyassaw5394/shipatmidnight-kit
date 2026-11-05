@@ -98,8 +98,6 @@ Part of the same workflow, installed from their own repos at the pinned commit. 
 | web-design-guidelines | [vercel-labs/agent-skills @ 1a2c79d](https://github.com/vercel-labs/agent-skills/tree/1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62) · guidelines: [vercel-labs/web-interface-guidelines @ 434b7f9](https://github.com/vercel-labs/web-interface-guidelines/tree/434b7f91364665f2f733b310ec54809bf8f37937) | README says MIT, no LICENSE file · MIT | Licence file missing upstream; fetches live guidelines anyway |
 | playwright-cli (browser testing) | [microsoft/playwright-cli @ v0.1.23](https://github.com/microsoft/playwright-cli/tree/v0.1.23) | Apache-2.0 | Install with npm |
 | supabase, supabase-postgres-best-practices | [supabase/agent-skills @ v0.1.9](https://github.com/supabase/agent-skills/tree/v0.1.9) | MIT | Updated often upstream |
-| legal-suite picks | [anthropics/claude-for-legal @ 4a6c651](https://github.com/anthropics/claude-for-legal/tree/4a6c651889c97cc9140580363c73e0eb17379c2b) | Apache-2.0 | Official upstream plugin |
-| security-audit | [cloudflare/security-audit-skill @ c1c8a8c](https://github.com/cloudflare/security-audit-skill/tree/c1c8a8c1471069fb0e188eeaff69b8e8db6564a8) | MIT | Upstream skill |
 | NVIDIA SkillSpector / SkillEvaluator | [SkillSpector v2.13.3](https://github.com/NVIDIA/SkillSpector/tree/v2.13.3) · [SkillEvaluator v0.7.1](https://github.com/NVIDIA/SkillEvaluator/tree/v0.7.1) | Apache-2.0 | Fetched by `audit.sh` at run time |
 | Debug Anything (runtime observation for agents: MCP server + skill) | [shreyassaw5394/debuganything @ 925fd9d](https://github.com/shreyassaw5394/debuganything/tree/925fd9df5ff7e25a4d1df0cdbd943f640a8e0dd9) | MIT | Ships as its own plugin with the MCP server it needs |
 | Agent Theatre (watch and replay agent sessions) | [shreyassaw5394/agent-theatre @ v1.8.1](https://github.com/shreyassaw5394/agent-theatre/tree/v1.8.1) | MIT | Ships as its own plugin with hooks |
@@ -115,6 +113,8 @@ The kit's own files are MIT ([LICENSE](LICENSE)). Bundled third-party pieces kee
 | `agents/ecc-*.md` (10 agents) | [affaan-m/ECC](https://github.com/affaan-m/ECC), (c) 2026 Affaan Mustafa | MIT |
 | `skills/game-feel` | [gamedev-skills/awesome-gamedev-agent-skills](https://github.com/gamedev-skills/awesome-gamedev-agent-skills), (c) 2026 Abhishek Barali and contributors | Apache-2.0 |
 | `skills/gha-security-review` | [getsentry/skills](https://github.com/getsentry/skills) | Apache-2.0 |
+| `skills/security-audit` | [cloudflare/security-audit-skill](https://github.com/cloudflare/security-audit-skill) @ `c1c8a8c`, (c) 2025-2026 Cloudflare, Inc. | MIT |
+| `skills/legal-suite` (11 skills) | [anthropics/claude-for-legal](https://github.com/anthropics/claude-for-legal) @ `4a6c651`, Anthropic, PBC | Apache-2.0 |
 | `skills/apple-motion` | [emilkowalski/skills](https://github.com/emilkowalski/skills), (c) 2026 Emil Kowalski | MIT |
 | `skills/ui-style-picker/references/ui-ux-pro-max-styles.csv` | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill), (c) 2024 Next Level Builder | MIT |
 

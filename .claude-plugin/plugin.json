@@ -1,7 +1,7 @@
 {
   "name": "shipatmidnight-kit",
   "displayName": "Ship at Midnight kit",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A studio workflow for Claude Code: /vision runs a one-paragraph idea to a release gate; design-first site process, security, abuse and legal passes, CI review, skill intake scanning, and model-pinned review/planning agents.",
   "author": {
     "name": "Shreyas Sawant",

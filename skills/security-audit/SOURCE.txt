@@ -1,0 +1,6 @@
+Upstream:  https://github.com/cloudflare/security-audit-skill
+Path:      skills/security-audit
+Commit:    c1c8a8c1471069fb0e188eeaff69b8e8db6564a8 (2026-09-14)
+Licence:   MIT (LICENSE in this folder, (c) 2025-2026 Cloudflare, Inc.)
+Bundled:   2026-11-04
+Changed:   none (every file is byte-identical to upstream at that commit).

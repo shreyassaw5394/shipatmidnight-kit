@@ -1,0 +1,10 @@
+Upstream:  https://github.com/anthropics/claude-for-legal
+Commit:    4a6c651889c97cc9140580363c73e0eb17379c2b (2026-07-23)
+Licence:   Apache-2.0 (LICENSE in this folder). Upstream has no NOTICE file at that commit.
+Bundled:   2026-11-04
+Changed:   - A subset of 11 skills is bundled, not the whole plugin (no commands, connectors or MCP servers).
+           - Each upstream <area>/skills/<name>/SKILL.md is placed at parts/<area>-<name>/SKILL.md
+             (ip-legal, privacy-legal, ai-governance-legal, product-legal); content byte-identical to upstream,
+             plus product-legal launch-review/references/seven-category-framework.md, also identical.
+           - skills/legal-suite/SKILL.md (the router/index) is written by this kit, not upstream.
+           - Upstream parts refer to ~/.claude/plugins/config/claude-for-legal/... practice profiles; those are not shipped.
