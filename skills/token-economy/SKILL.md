@@ -7,6 +7,10 @@ description: Use whenever work is split across several agents, background execut
 
 Usage limits stop every running agent at once. Parallel agents that each re-read the whole project burn the window fastest. Run lean by default.
 
+## 0. Ceremony only for ground-up work
+
+GSD (planner, plan-check, executors, verifier) is for a new project or a big new phase: several files, more than one session, a plan worth checking. A small local task (a fix, a doc edit, a config change, a single-file feature) is done directly, or with one small agent on the mid model, then the project's own checks and one commit. No planner, no plan-check, no executor wave. Say which path you are taking and why before you start.
+
 ## 1. Parallelism: 2-3 agents, not 6
 
 - Never more than 2-3 agents at a time. Six executors cost about six times the context, and a limit hit loses all of them.

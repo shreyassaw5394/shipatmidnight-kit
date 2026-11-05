@@ -8,7 +8,7 @@ description: Use at the start of any build, launch, release, publish, security o
 Read the full rules in `${CLAUDE_PLUGIN_ROOT}/PLAYBOOK.md` before acting. The short version:
 
 1. **Design first.** The product is the hero; say no to what doesn't serve it; never a vibe-coded page (`product-site-design`, `ui-style-picker`).
-2. **Plan, then build** in small steps, each with a check you can run. Surgical changes only.
+2. **Plan, then build** in small steps, each with a check you can run. Surgical changes only. GSD and agent ceremony only for ground-up work (new project, big new phase); small local tasks are done directly or with one small agent, and you say which path you took.
 3. **Test before commit.** Project checks + exercise the real app; review the diff with the `ecc-*` reviewer agents.
 4. **Debug by observing**; no root cause without evidence.
 5. **Neutral public text** for security and legal fixes; reasoning goes to the owner in chat.

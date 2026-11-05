@@ -1,12 +1,12 @@
 {
   "name": "shipatmidnight-kit",
   "owner": { "name": "Shreyas Sawant", "url": "https://github.com/shreyassaw5394" },
-  "description": "Private marketplace for the Ship at Midnight kit.",
+  "description": "Marketplace for the Ship at Midnight kit: a studio workflow for Claude Code, from one-paragraph vision to release gate.",
   "plugins": [
     {
       "name": "shipatmidnight-kit",
       "source": "./",
-      "description": "A studio workflow for Claude Code: design-first site process, security, abuse and legal passes, CI review, skill intake scanning, and model-pinned agents.",
+      "description": "A studio workflow for Claude Code: /vision runs idea to release gate; design-first site process, security, abuse and legal passes, CI review, skill intake scanning, and model-pinned agents.",
       "category": "productivity"
     }
   ]

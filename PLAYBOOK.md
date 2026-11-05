@@ -11,7 +11,8 @@ The operating rules behind this kit, in plain words. They are written for a smal
 
 ## 2. Plan, then build
 
-- For anything bigger than a small fix: plan first (`ecc-planner`, `ecc-architect`, or a phase-based workflow such as GSD, linked in the README), then build in small, verifiable steps.
+- GSD (or any planner / plan-check / executor ceremony) is for ground-up work only: a new project or a big new phase. A small local task (a fix, a doc edit, a config change, a single-file feature) is done directly or with one small agent, then checked and committed. Say which path you are taking and why.
+- For ground-up work: plan first (`ecc-planner`, `ecc-architect`, or a phase-based workflow such as GSD, linked in the README), then build in small, verifiable steps.
 - Each step has a success check you can run. Define it before writing the code.
 - Make surgical changes. Don't refactor what you weren't asked to touch.
 - Build straight through the plan; collect what needs the owner's eyes into one verification list at the end instead of stopping at every step.
@@ -75,6 +76,7 @@ Every repo and README gets an original logo and at least one intro image, genera
 
 Usage limits stop every running agent at once, so run lean by default. The `token-economy` skill has the rules for any multi-agent work; these are the GSD-specific settings and habits (GSD is linked in the README, v1.20.4).
 
+- **Ground-up only**: GSD for a new project or a big new phase. Small local tasks skip it entirely (see `token-economy` §0).
 - **Mode and profile**: set `yolo` mode (no approval prompt at every step) and the `balanced` profile (strongest model only for planning, middle for execution, research and verification, fastest for mapping). Use `/gsd:settings` and `/gsd:set-profile`. Drop to `budget` when a limit is close.
 - **Batch small plans**: fold one-file or config-only plans into a single plan, or one executor, instead of one agent each. Keep waves to 2-3 parallel executors.
 - **One plan-check round**: let the plan checker run once, fix what it finds, and move on. Repeated check-and-revise loops cost more than the defects they catch; the first execution wave surfaces the rest.
