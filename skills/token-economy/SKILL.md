@@ -13,7 +13,7 @@ GSD (planner, plan-check, executors, verifier) is for a new project or a big new
 
 ## 1. Parallelism: 2-3 agents, not 6
 
-- Never more than 2-3 agents at a time. Six executors cost about six times the context, and a limit hit loses all of them.
+- Never more than 2-3 agents at a time. Each executor carries its own context, so more of them cost more, and a limit hit stops all of them.
 - Batch small plans (one file, one config, one doc) into a single executor instead of one agent each.
 - Run dependent work in sequence. Only truly independent plans go in the same wave.
 

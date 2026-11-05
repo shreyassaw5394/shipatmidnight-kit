@@ -3,7 +3,7 @@
 Every skill and agent in this kit was scanned before publishing with `tools/skill-audit/audit.sh`:
 NVIDIA SkillSpector v2.13.3 and NVIDIA SkillEvaluator v0.7.1 Tier 1, static mode, no LLM. Every high or critical finding was then read by hand. Full reports are not kept in the repo.
 
-Scan date: 2026-11-04 (`skills/token-economy` and `skills/vision` added and scanned the same day; `token-economy` rescanned after its §0 addition).
+Scan date: 2026-11-04. Full re-run of both scanners over every skill and agent on 2026-11-04 (launch review, `audit.sh skills/* agents/*.md`): verdicts, risk scores and quality grades matched the table below, with no new high or critical findings. Earlier note: (`skills/token-economy` and `skills/vision` added and scanned the same day; `token-economy` rescanned after its §0 addition).
 
 | Item | SkillSpector | SkillEvaluator | High/critical findings, read by hand |
 |---|---|---|---|
