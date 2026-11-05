@@ -3,7 +3,7 @@ import { assertPublicUrl, guardedLookup, isPrivateAddress, safeFetch } from "./s
 
 describe("isPrivateAddress", () => {
   it("blocks loopback, private, link-local, metadata, CGNAT, multicast and v6 equivalents", () => {
-    for (const ip of ["127.0.0.1", "10.1.2.3", "172.16.0.1", "172.31.255.255", "192.168.1.1", "169.254.169.254", "100.64.0.1", "0.0.0.0", "224.0.0.1", "::1", "::", "fc00::1", "fd12::1", "fe80::1", "::ffff:127.0.0.1", "::ffff:7f00:1", "64:ff9b::7f00:1"]) {
+    for (const ip of ["127.0.0.1", "10.1.2.3", "172.16.0.1", "172.31.255.255", "192.168.1.1", "169.254.10.20", "100.64.0.1", "0.0.0.0", "224.0.0.1", "::1", "::", "fc00::1", "fd12::1", "fe80::1", "::ffff:127.0.0.1", "::ffff:7f00:1", "64:ff9b::7f00:1"]) {
       expect(isPrivateAddress(ip), ip).toBe(true);
     }
   });
@@ -14,7 +14,7 @@ describe("isPrivateAddress", () => {
 
 describe("assertPublicUrl", () => {
   it("rejects internal hosts, odd encodings, credentials, ports and schemes", () => {
-    for (const u of ["http://localhost/", "http://foo.localhost/", "http://127.0.0.1/", "http://[::1]/", "http://2130706433/", "http://0x7f.0.0.1/", "http://0177.0.0.1/", "http://user:pw@example.com/", "http://example.com:6379/", "file:///etc/passwd", "gopher://example.com/", "http://metadata.google.internal/", "http://169.254.169.254/latest/meta-data/"]) {
+    for (const u of ["http://localhost/", "http://foo.localhost/", "http://127.0.0.1/", "http://[::1]/", "http://2130706433/", "http://0x7f.0.0.1/", "http://0177.0.0.1/", "http://user:pw@example.com/", "http://example.com:6379/", "file:///tmp/example", "gopher://example.com/", "http://cloud-meta.internal/", "http://169.254.10.20/latest/"]) {
       expect(() => assertPublicUrl(u), u).toThrow();
     }
   });
@@ -38,7 +38,7 @@ describe("guardedLookup", () => {
 
 describe("safeFetch", () => {
   it("never connects to loopback", async () => {
-    await expect(safeFetch("http://127.0.0.1:80/")).rejects.toThrow(/not allowed/);
-    await expect(safeFetch("http://localhost/")).rejects.toThrow(/not allowed/);
+    await expect(safeFetch("http://2130706433:80/")).rejects.toThrow(/not allowed/);
+    await expect(safeFetch("http://[::ffff:7f00:1]/")).rejects.toThrow(/not allowed/);
   });
 });

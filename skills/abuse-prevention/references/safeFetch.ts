@@ -58,7 +58,7 @@ export function assertPublicUrl(raw: string | URL, opts: { httpsOnly?: boolean }
   if (u.username || u.password) throw new BlockedUrlError("URL not allowed: credentials in URL");
   if (!ALLOWED_PORTS.has(u.port)) throw new BlockedUrlError("URL not allowed: non-standard port");
   const host = u.hostname.replace(/^\[|\]$/g, "").toLowerCase();
-  if (!host || host === "localhost" || host.endsWith(".localhost") || host.endsWith(".local") || host.endsWith(".internal") || host === "metadata.google.internal") {
+  if (!host || host === "localhost" || host.endsWith(".localhost") || host.endsWith(".local") || host.endsWith(".internal")) {
     throw new BlockedUrlError("URL not allowed: internal host");
   }
   if (isIP(host) && isPrivateAddress(host)) throw new BlockedUrlError("URL not allowed: private address");

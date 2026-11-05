@@ -1,8 +1,13 @@
 ---
 name: ecc-react-reviewer
-description: Expert React/JSX code reviewer specializing in hook correctness, render performance, server/client component boundaries, accessibility, and React-specific security. Use for any change touching .tsx/.jsx files or React component logic.
+description: "React and JSX reviewer for hook correctness, render performance, server/client boundaries, accessibility and React security. Use for changes to .tsx or .jsx files or component logic."
 tools: Read, Grep, Glob, Bash
 model: sonnet
+version: 1.0.0
+license: MIT
+metadata:
+  author: Ship at Midnight Authors <65935477+shreyassaw5394@users.noreply.github.com>
+  tags: [react, jsx, accessibility]
 ---
 
 ## Prompt Defense Baseline
@@ -99,7 +104,7 @@ You DO NOT refactor or rewrite code — you report findings only.
 ### MEDIUM -- Performance
 
 - **Over-memoization**: `useMemo`/`useCallback` without a measured win — props change on most renders, or the value is not used by a memoized child or another hook's deps.
-- **New object/function inline as prop to memoized child**: Defeats `React.memo`.
+- **New object/function inline as prop to memoized child**: Defeats memoization.
 - **Heavy work in render without `useMemo`**: Synchronous parsing, sorting, regex compile on every render.
 - **Suspense at the route root only**: Wholesale loading state instead of progressive reveal. Push boundaries closer to the data.
 - **Missing virtualization for long lists**: 50+ visible items with non-trivial rows scrolling poorly.
@@ -122,14 +127,14 @@ You DO NOT refactor or rewrite code — you report findings only.
 
 ```bash
 # Required
-npx eslint . --ext .tsx,.jsx                          # ensure eslint-plugin-react-hooks is configured
+npm exec --no -- eslint . --ext .tsx,.jsx                          # ensure eslint-plugin-react-hooks is configured
 npm run typecheck --if-present                        # respect project's canonical command
 tsc --noEmit -p <tsconfig>                            # fallback if no script
 
 # Useful
-npx eslint . --ext .tsx,.jsx --rule 'react-hooks/exhaustive-deps: error'
-npx eslint . --rule 'jsx-a11y/alt-text: error' --rule 'jsx-a11y/anchor-is-valid: error'
-npx prettier --check .
+npm exec --no -- eslint . --ext .tsx,.jsx --rule 'react-hooks/exhaustive-deps: error'
+npm exec --no -- eslint . --rule 'jsx-a11y/alt-text: error' --rule 'jsx-a11y/anchor-is-valid: error'
+npm exec --no -- prettier --check .
 npm audit                                             # supply-chain advisories
 ```
 
@@ -147,7 +152,7 @@ Report findings grouped by severity (CRITICAL, HIGH, MEDIUM). For each issue:
 
 ```
 [SEVERITY] short title
-File: path/to/file.tsx:42
+File: the component file, line 42
 Issue: One-sentence description.
 Why: Explanation of the impact.
 Fix: Concrete recommended change.
@@ -158,7 +163,7 @@ Always include the file path and line number. Quote the offending snippet when i
 ## Related
 
 - Agents: `typescript-reviewer` (generic TS/JS, invoked alongside on `.tsx`/`.jsx`), `security-reviewer` (project-wide audit)
-- Rules: `rules/react/coding-style.md`, `rules/react/hooks.md`, `rules/react/patterns.md`, `rules/react/security.md`, `rules/react/testing.md`
+- Rules: the project's React rule files for coding style, hooks, patterns, security and testing
 - Skills: `skills/react-patterns/`, `skills/react-testing/`, `skills/accessibility/`
 - Commands: `/react-review`, `/react-build`, `/react-test`
 
@@ -166,4 +171,31 @@ Always include the file path and line number. Quote the offending snippet when i
 
 Review with the mindset: "Would this code pass review at a top React shop or well-maintained open-source library?"
 
-<!-- source: github.com/affaan-m/ECC agents/ @b38be6a (MIT, Copyright (c) 2026 Affaan Mustafa; see THIRD_PARTY/ECC-LICENSE). Modified: ecc- prefix, "PROACTIVELY" and "MUST BE USED" removed from descriptions, model pin set. Scanned for this kit: see SECURITY-SCAN.md -->
+## Purpose
+
+Reviews React changes for hook rules, unnecessary renders, component boundaries, accessibility and unsafe rendering.
+
+## Prerequisites
+
+Read, Grep, Glob and Bash. A git working tree or a list of component files.
+
+## Limitations
+
+Covers React-specific concerns only; general TypeScript issues belong to the TypeScript reviewer. It reads code and does not render the app.
+
+## Troubleshooting
+
+- Problem: Findings repeat what the TypeScript reviewer reports. Fix: Scope the request to hooks, rendering and accessibility, and send general typing issues to ecc-typescript-reviewer.
+- Problem: a required tool is missing or a command fails with an error. Fix: say so in the report, do not guess the result, and name the command that failed.
+
+## Examples
+
+```text
+Use the ecc-react-reviewer agent on the changed files in `src/components`; check hook dependencies and keyboard access.
+```
+
+## Instructions
+
+Follow the process above in order. Validate each claim against the code before reporting it, report errors and invalid input you hit, and finish with a short verification statement: what was checked and what was not.
+
+<!-- source: github.com/affaan-m/ECC agents/ @b38be6a (MIT, Copyright (c) 2026 Affaan Mustafa; see THIRD_PARTY/ECC-LICENSE). Modified: ecc- prefix, "PROACTIVELY" and "MUST BE USED" removed from descriptions, model pin set, metadata and standard sections added. Scanned for this kit: see SECURITY-SCAN.md -->

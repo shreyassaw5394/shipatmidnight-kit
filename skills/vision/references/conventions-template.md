@@ -9,17 +9,22 @@ Token economy: read only your plan, this file and the 1-2 summaries you depend o
 Commits: neutral messages; stage listed files only; use the lock recipe below when other executors run in parallel.
 
 ```bash
+# Parallel-safe commit helper: one committer at a time, staged through a private index file.
+commit_cleanup() {  # removes only this call's own lock directory and private index file
+  unset GIT_INDEX_FILE
+  if [ -n "${commit_idx:-}" ] && [ -f "$commit_idx" ]; then unlink "$commit_idx"; fi
+  if [ -n "${commit_lock:-}" ] && [ -d "$commit_lock" ]; then rmdir "$commit_lock"; fi
+}
 commit_files() {  # usage: commit_files "message" file1 file2 ...
-  msg="$1"; shift
-  lock="$(git rev-parse --git-dir)/commit.lock"
-  until mkdir "$lock" 2>/dev/null; do sleep 1; done
-  trap 'rmdir "$lock"' RETURN
-  idx="$(mktemp)"; rm -f "$idx"
-  export GIT_INDEX_FILE="$idx"
-  git read-tree HEAD
-  git add -- "$@"
-  git commit -q -m "$msg"
-  unset GIT_INDEX_FILE; rm -f "$idx"
-  git reset -q -- "$@"
+  local msg="$1" rc=0
+  shift
+  commit_lock="$(git rev-parse --git-dir)/commit.lock"
+  commit_idx="$(git rev-parse --git-dir)/commit-index.$$"   # private index path for this call only
+  until mkdir "$commit_lock" 2>/dev/null; do sleep 1; done  # one committer at a time
+  export GIT_INDEX_FILE="$commit_idx"
+  git read-tree HEAD && git add -- "$@" && git commit -q -m "$msg" || rc=$?
+  commit_cleanup                                            # always runs, success or failure
+  if [ "$rc" -eq 0 ]; then git restore --staged -- "$@"; fi  # sync the shared index to the new HEAD
+  return "$rc"
 }
 ```

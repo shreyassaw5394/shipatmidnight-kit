@@ -2,7 +2,7 @@
 // Loads a page the way a real visitor would and reports every request to another host and every cookie,
 // before any choice, after "Reject", after "Accept", and with Global Privacy Control on.
 // usage: node privacy-probe.mjs <url> [bannerSelector] [rejectText] [acceptText]
-// needs: playwright (npx playwright install chromium, or run from a project that has it)
+// needs: playwright with a browser installed (playwright install chromium), or run from a project that has it
 import { chromium } from "playwright";
 const [url, banner = '[aria-label="Privacy choices"], [role="dialog"]', rejectText = "Reject", acceptText = "Accept"] = process.argv.slice(2);
 if (!url) { console.error("usage: privacy-probe.mjs <url> [bannerSelector] [rejectText] [acceptText]"); process.exit(2); }

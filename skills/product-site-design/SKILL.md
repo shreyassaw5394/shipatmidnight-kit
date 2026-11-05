@@ -1,11 +1,28 @@
 ---
 name: product-site-design
-description: Use when building or redesigning a website, landing page, launch page, product page, docs home, dashboard or any user-facing UI for a product your studio ships. A design-first house process — the product is the hero, restraint over ornament, never a "vibe-coded" page — plus the gates (style, taste, guidelines, interaction, accessibility, legal, security) every site passes before anyone sees it.
+description: "Use when building or redesigning a website, landing page or user-facing UI. A design-first process (product as hero, real material) plus the gates a site passes before release. Not for backend work."
+version: 1.0.0
+license: MIT
+metadata:
+  author: Ship at Midnight Authors <65935477+shreyassaw5394@users.noreply.github.com>
+  tags: [design, website, ux, release]
 ---
 
 # Product site design (house process)
 
-The bar: the product is the hero of the page, and everything that does not serve it is cut. Say no to a thousand good ideas so the one that matters reads clearly. A page should feel designed for this product and no other — never the average of every AI-generated landing page.
+## Purpose
+
+A design-first house process for any website, landing page, launch page, product page, docs home, dashboard or user-facing UI the studio ships: the product is the hero, restraint over ornament, no "vibe-coded" look, plus the gates (style, taste, guidelines, interaction, accessibility, legal, security) a site passes before anyone sees it.
+
+## Prerequisites
+
+- The product runs (or has real output to show) so the page can use real material.
+- A browser for checks (Playwright or playwright-cli) and a way to serve the built site over HTTP.
+- Related skills in this kit: `ui-style-picker`, `legal-compliance`, `security-hardening`; optional art-direction and web-guidelines skills linked in the README.
+
+## Instructions
+
+Follow the principles, then the process in order, then the build rules. The bar: the product is the hero of the page, and everything that does not serve it is cut. Say no to a thousand good ideas so the one that matters reads clearly. A page should feel designed for this product and no other — never the average of every AI-generated landing page.
 
 ## Principles
 
@@ -19,11 +36,13 @@ The bar: the product is the hero of the page, and everything that does not serve
 
 ## The process (in order)
 
+(Validate each step before moving on; a failed gate sends you back to the step that caused it.)
+
 1. **Read the current site and the product.** Screenshot the live site at desktop and phone width as the "before". List 8–12 things only this product has (its output, numbers, name, constraint, artefacts). The design idea comes from that list.
 2. **Name the style** with `ui-style-picker`. At most two styles blended. Say which in the reply.
 3. **Find the direction.** Write one idea sentence: the composition carries something only this product has. If you have an art-direction skill installed (for example taste-skill, linked in this kit's README), deal three directions and pick the one built on that item. Reference design systems (e.g. awesome-design-md) give principles only — never copy another brand's assets, logos or look.
 4. **Write the copy first.** Headlines at most two lines at every width (~32 characters), one supporting sentence, full content in every section, no invented proof.
-5. **Build** in the project's existing stack (or static HTML/CSS/JS). Tokens first, then the hero, then each section. Neighbouring sections never share a layout. One live interactive thing made from the product. Motion: one signature move, staggered entrances, feedback on every control, all with reduced-motion fallbacks.
+5. **Build** in the project's existing stack (or static HTML/CSS/JS). Tokens first, then the hero, then each section. Neighbouring sections use different layouts. One live interactive thing made from the product. Motion: one signature move, staggered entrances, feedback on every control, all with reduced-motion fallbacks.
 6. **Gate** (all must pass before the owner sees it):
    - Taste/lint inspector of your art-direction skill at 0 failures at 1440, 768 and 390 px, if installed. Serve the built site over HTTP for inspection (file paths break root-relative assets). Document any deliberate exception next to the code.
    - Web interface guidelines review (e.g. Vercel's Web Interface Guidelines; skill linked in the README): focus, reduced motion, pause control on looping video, `translate="no"` on code, `aria-live` for copy confirmations, safe-area insets, touch-action, image dimensions.
@@ -54,3 +73,25 @@ The bar: the product is the hero of the page, and everything that does not serve
 - `security-hardening`: headers (HSTS, nosniff, frame DENY, referrer, permissions, strict CSP) verified with `curl -sI` on the live URL; frontend rules (URL validation, no raw HTML from data).
 - `abuse-prevention`: only if the site has endpoints or forms.
 - Nothing that can't be backed up: don't link private repos or unpublished packages as if they were live — say "launching <date>".
+
+## Examples
+
+```text
+Request: "redesign the landing page for the CLI"
+Process: read the live site (before screenshots) -> name the style (ui-style-picker) -> one idea sentence built on something
+         only this CLI has (its real output) -> copy first -> build tokens, hero, sections -> gates -> look and fix (max three rounds)
+         -> preview URL for the owner, then production after approval.
+```
+
+## Limitations
+
+- It cannot judge taste for the owner; the owner's eye decides. Passing every check is the floor.
+- Gate tools (inspectors, Playwright) must be installed; if one is missing, record that gate as "not run".
+- It covers the page and its build, not backend design; use `security-hardening` and `abuse-prevention` for endpoints.
+
+## Troubleshooting
+
+- Problem: the page looks like a generic template. Fix: return to step 1 and list what only this product has; rebuild the hero around the best item.
+- Problem: the inspector reports failures only when opened from a file path. Fix: serve the built site over HTTP; root-relative assets break from file paths.
+- Problem: a gate fails after a late change. Fix: re-run the full gate list on the final build, not the earlier one.
+- Problem: horizontal overflow at 390 px. Fix: check fixed widths and long unbroken strings in the narrowest section first.

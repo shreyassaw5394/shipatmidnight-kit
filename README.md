@@ -118,6 +118,8 @@ The kit's own files are MIT ([LICENSE](LICENSE)). Bundled third-party pieces kee
 | `skills/apple-motion` | [emilkowalski/skills](https://github.com/emilkowalski/skills), (c) 2026 Emil Kowalski | MIT |
 | `skills/ui-style-picker/references/ui-ux-pro-max-styles.csv` | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill), (c) 2024 Next Level Builder | MIT |
 
+**Scan status.** Skills and agents written for this kit pass SkillSpector as SAFE (one exception: `legal-compliance` is CAUTION with no high findings, see [SECURITY-SCAN.md](SECURITY-SCAN.md)) and SkillEvaluator as grade A. These bundled pieces are third-party, byte-identical to upstream, and scanned with exceptions rather than fixed: `security-audit`, `legal-suite`, `apple-motion`, `game-feel` and `gha-security-review`. Their verdicts and the reasons are in SECURITY-SCAN.md.
+
 Ideas paraphrased with inline credit (no text or code copied) in the legal, security and abuse skills: Anthropic claude-for-legal, Sentry skills, OpenAI security skills, supabase/agent-skills, github/awesome-copilot, Addy Osmani web-quality-skills, Trail of Bits skills, Semgrep llm-security, OWASP and W3C publications. The intro image was rendered with IBM Plex Sans and IBM Plex Mono (SIL OFL 1.1); no font files are distributed.
 
 Made by Shreyas Sawant. Companion products by the same author: Debug Anything and Agent Theatre (linked above).

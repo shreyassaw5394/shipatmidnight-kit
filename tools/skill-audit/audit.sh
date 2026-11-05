@@ -31,7 +31,7 @@ for arg in "$@"; do
     dir="$(cd "$arg" && pwd)"; name="$(basename "$dir")"
   elif [ -f "$arg" ] && [ "${arg##*.}" = "md" ]; then
     # Agents and commands are single files: scan each as a one-file skill.
-    name="$(basename "$arg" .md)"; dir="$TMP/$name"; mkdir -p "$dir"; cp "$arg" "$dir/SKILL.md"
+    name="$(basename "$arg" .md)"; dir="$TMP/skills/$name"; mkdir -p "$dir"; cp "$arg" "$dir/SKILL.md"
   else
     echo "skip (not a skill folder or .md file): $arg"; continue
   fi

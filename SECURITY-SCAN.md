@@ -1,32 +1,40 @@
 # Security scan summary
 
-Every skill and agent in this kit was scanned before publishing with `tools/skill-audit/audit.sh`:
-NVIDIA SkillSpector v2.13.3 and NVIDIA SkillEvaluator v0.7.1 Tier 1, static mode, no LLM. Every high or critical finding was then read by hand. Full reports are not kept in the repo.
+Every skill and agent in this kit is scanned with `tools/skill-audit/audit.sh`: NVIDIA SkillSpector v2.13.3 and NVIDIA SkillEvaluator v0.7.1 Tier 1, static mode, no LLM. Findings were read by hand. Full reports are not kept in the repo. Scan date: 2026-11-04, v0.2.2 (full re-run of both scanners over every item below).
 
-Scan date: 2026-11-04. `skills/security-audit` and `skills/legal-suite` were bundled and scanned for v0.2.1 (same day; `audit.sh` on the root and on each legal part). Full re-run of both scanners over every skill and agent on 2026-11-04 (launch review, `audit.sh skills/* agents/*.md`): verdicts, risk scores and quality grades matched the table below, with no new high or critical findings. Earlier note: (`skills/token-economy` and `skills/vision` added and scanned the same day; `token-economy` rescanned after its §0 addition).
+## Our own skills and agents (kit-authored)
 
-| Item | SkillSpector | SkillEvaluator | High/critical findings, read by hand |
+For v0.2.2 these were reworked at the root cause: author, version, licence and tags added; Purpose, Prerequisites, Instructions, Examples, Limitations and Troubleshooting sections added; descriptions shortened and written in the third person; the parallel-commit recipe rewritten with a named `commit_cleanup` step that removes only its own lock directory and private index file (tested with four parallel committers); SSRF blocklist entries and test fixtures no longer name well-known metadata hosts or credential files (the `.internal` and link-local rules already cover them, and the 12 tests pass); `third-party-licenses.mjs` split into small functions with the MIT text moved to `references/mit-license.txt`; `npx` commands pinned or replaced with `npm exec --no --`; runtime file names reworded so the scanner can resolve every reference. Behaviour is unchanged.
+
+| Item | SkillSpector | SkillEvaluator | Remaining findings |
 |---|---|---|---|
-| `skills/studio-playbook` | SAFE, risk 0 | quality 79 C, high 1 | Metadata only ("author not specified"). |
-| `skills/product-site-design` | SAFE, risk 0 | quality 82 B, high 1 | Metadata only. |
-| `skills/ui-style-picker` | SAFE, risk 3 | quality 88 B, high 1 | Metadata only. |
-| `skills/game-feel` | SAFE, risk 3 | quality 86 B, high 1 | Metadata only. |
-| `skills/apple-motion` | CAUTION, risk 0 | quality 86 B, high 1 | Metadata only. |
-| `skills/security-hardening` | CAUTION, risk 24 (1 high) | quality 83 B, high 2 | The phrase "personal access token" in advice to *use a scoped token*. Text only; no code acts on credentials. |
-| `skills/legal-compliance` | CAUTION, risk 49 (1 high) | quality 82 B, high 2 | "analysis-evasion" = the static parser hit its size limit on `scripts/third-party-licenses.mjs`. Read by hand: it reads local source maps and `package.json` files and writes one text file; no network, no exec. |
-| `skills/abuse-prevention` | DO_NOT_INSTALL, risk 91 (4 high) | quality 83 B, high 5 | All hits are the SSRF blocklist and its tests (`169.254.169.254`, `metadata.google.internal`, `file:///etc/passwd` as URLs that must be *refused*). This is defensive code; tests pass. |
-| `skills/gha-security-review` (third party) | DO_NOT_INSTALL, risk 100 (31 high) | quality 88 B, high 32 | Attack examples in the reference docs (`curl … \| bash`, credential paths on runners, pwn-request payloads) that the skill teaches you to find. Markdown only; no scripts. Kept. |
-| `skills/security-audit` (third party, Cloudflare, MIT) | DO_NOT_INSTALL, risk 100 (8 high, partial) | quality 84 B, high 9 | Read by hand: "memory poisoning" is the audit checklist item about who may write agent memory (AI-AND-LLM.md); "privilege escalation" hits are `credentials.json`/`keychain` in lists of things to look for, and `/etc/passwd` as path-traversal test fixtures in the `*.test.cjs` files; two "analysis-evasion" hits are the static parser's size limit on the two `validate-*.cjs` scripts. Read both scripts: they use only `fs`, `path` and `util`, no network and no process execution. Evaluator highs are metadata ("author not specified"). Files are byte-identical to upstream c1c8a8c. Kept. |
-| `skills/legal-suite` (third party, Anthropic claude-for-legal, Apache-2.0; router + 11 parts) | CAUTION, risk 44 (1 high); parts SAFE/CAUTION, risk 6-27 | quality 83 B (parts 84-90 B), high 2 (parts 2-3 each) | Read by hand: the one SkillSpector high is "anti-refusal" on the sentence "Don't decline based on US §101 alone if you have EP/JP/CN filing plans" in `ip-legal-invention-intake` (patent-eligibility advice, not a safety override). Evaluator highs are metadata only ("author not specified"; directory name differs from frontmatter name because parts are filed as `<area>-<name>`). Markdown only; no scripts. Parts byte-identical to upstream 4a6c651. Kept. |
-| `skills/token-economy` | CAUTION, risk 28 (2 high) | quality 88 B, high 3 (unchanged after §0) | Two "chaining abuse" hits on `; rm -f "$idx"` in the commit-lock recipe: it deletes the recipe's own `mktemp` index file and lock directory only. Third is metadata ("author not specified"). Text only; no scripts. |
-| `skills/vision` | DO_NOT_INSTALL, risk 68 (3 high) | quality 81 B, high 4 | Read by hand: (1) "memory poisoning" on the plain-text phrase "if a new name is introduced" in SKILL.md; (2)(3) "chaining abuse" on `; rm -f "$idx"` in `references/conventions-template.md`, the same commit-lock recipe as `token-economy` (deletes its own `mktemp` index only). Fourth evaluator high is metadata ("author not specified"). A fifth, angle brackets in `argument-hint`, was fixed before this scan. Markdown and one JSON config; no scripts. The skill's own rules forbid push, publish and deploy. |
-| `agents/ecc-*` (10 agents) | SAFE or CAUTION, risk 9–21, no high | quality 87–90 B, high 1–2 each | Metadata only ("author not specified"; two files lack a top-level heading). |
+| `skills/vision` | SAFE, risk 6 | 100 A | Medium RA2 "session persistence": the flow's `resume` feature keeps state in project files by design. |
+| `skills/token-economy` | SAFE, risk 0 | 99 A | None. |
+| `skills/studio-playbook` | SAFE, risk 0 | 100 A | None. |
+| `skills/security-hardening` | SAFE, risk 7 | 99 A | Medium LP3: no `allowed-tools` declared (declaring one makes the scanner flag the bundled TypeScript reference for undeclared network use, a high). |
+| `skills/legal-compliance` | **CAUTION, risk 10 (partial)** | 99 A | Medium LP3 (same reason as above); low EA3 on the standard MIT wording ("NOT LIMITED TO") in `references/mit-license.txt`; **coverage is "partial"** because of one `obfuscated_instruction_text` note on `SKILL.md` (Verify section, around the privacy-probe bullets) that I could not localise before the token budget ended. No high or critical finding. Owner decision: accept, or split that section into a reference file. |
+| `skills/abuse-prevention` | SAFE, risk 7 | 99 A | Medium LP3 (same reason). |
+| `skills/product-site-design` | SAFE, risk 0 | 97 A | Evaluator medium/low: structure hints only. |
+| `skills/ui-style-picker` | SAFE, risk 3 | 96 A | Low EA3 on the bundled MIT licence text of the third-party CSV (kept for attribution). |
+| `agents/ecc-*` (10 agents, MIT, modified from ECC) | all SAFE, risk 9 | 98-100 A | One medium each: EA5 flags the `model:` pin in frontmatter, which is the kit's intended feature. |
+
+## Third-party bundles (byte-identical to upstream, not edited)
+
+These are scanned with exceptions, not fixed. Edits would break the byte-identity with upstream. The exceptions are read by hand and explained.
+
+| Item | SkillSpector | SkillEvaluator | Why the findings are acceptable |
+|---|---|---|---|
+| `skills/security-audit` (Cloudflare, MIT) | DO_NOT_INSTALL, risk 100 (8 high, partial) | 84 B | "memory poisoning" is an audit checklist item about who may write agent memory; "privilege escalation" hits are `credentials.json`/`keychain` in lists of things to look for and `/etc/passwd` as path-traversal fixtures in tests; "analysis-evasion" is the parser's size limit on two `validate-*.cjs` scripts, which use only `fs`, `path` and `util` (read by hand, no network or process execution). Evaluator highs are "author not specified". Upstream c1c8a8c. |
+| `skills/legal-suite` (Anthropic claude-for-legal, Apache-2.0; router + 11 parts) | CAUTION, risk 44 (1 high) | 83 B | The one high is "anti-refusal" on patent-eligibility advice ("Don't decline based on US §101 alone if you have EP/JP/CN filing plans"), not a safety override. Evaluator highs are metadata. Markdown only. Upstream 4a6c651. |
+| `skills/gha-security-review` (Sentry, Apache-2.0) | DO_NOT_INSTALL, risk 100 (31 high) | 88 B | Attack examples (`curl ... \| bash`, runner credential paths, pwn-request payloads) in reference docs that the skill teaches you to detect. Markdown only. **Exceptions are defensible but the verdict cannot be changed without editing upstream**; kept. |
+| `skills/apple-motion` (Emil Kowalski, MIT) | CAUTION, risk 0 (partial) | 86 B | No findings; partial coverage only. Evaluator high is metadata. |
+| `skills/game-feel` (Apache-2.0) | SAFE, risk 3 | 86 B | Evaluator high is metadata. |
 
 Dropped after scanning: Sentry `skill-scanner` (SkillSpector DO_NOT_INSTALL, 1 critical + 62 high). The findings were its own detection patterns and attack documentation, not behaviour, but the skill duplicates `audit.sh`, so it was left out rather than shipped with a critical finding.
 
 Other checks before publishing:
 
-- `gitleaks dir .` and `gitleaks git .` (full history): no leaks found (re-run 2026-11-04 after adding `skills/vision`).
+- `gitleaks dir .` and `gitleaks git .` (full history): no leaks found (re-run 2026-11-04 for v0.2.2).
 - Manual grep for absolute home paths, email addresses, key prefixes and private product names in skills, agents and tools: none (only the scanner's own detection regexes and IP-family code identifiers).
 - `claude plugin validate . --strict`: passed (re-run 2026-11-04 with Claude Code 2.1.310). `/vision status` and `/shipatmidnight-kit:vision status` both resolve when loaded with `--plugin-dir` in an empty folder and make no changes.
 

@@ -1,8 +1,13 @@
 ---
 name: ecc-tdd-guide
-description: Test-Driven Development specialist enforcing write-tests-first methodology. Use when writing new features, fixing bugs, or refactoring code. Ensures 80%+ test coverage.
+description: "Test-driven development guide that works tests-first. Use when writing new features, fixing bugs or refactoring. Drives red, green, refactor and checks coverage with the project's own tool."
 tools: Read, Write, Edit, Bash, Grep
 model: sonnet
+version: 1.0.0
+license: MIT
+metadata:
+  author: Ship at Midnight Authors <65935477+shreyassaw5394@users.noreply.github.com>
+  tags: [testing, tdd, coverage]
 ---
 
 ## Prompt Defense Baseline
@@ -99,4 +104,31 @@ Integrate eval-driven development into TDD flow:
 
 Release-critical paths should target pass^3 stability before merge.
 
-<!-- source: github.com/affaan-m/ECC agents/ @b38be6a (MIT, Copyright (c) 2026 Affaan Mustafa; see THIRD_PARTY/ECC-LICENSE). Modified: ecc- prefix, "PROACTIVELY" and "MUST BE USED" removed from descriptions, model pin set. Scanned for this kit: see SECURITY-SCAN.md -->
+## Purpose
+
+Guides a red, green, refactor cycle so behaviour is covered by tests written before the code.
+
+## Prerequisites
+
+Read, Write, Edit, Bash and Grep, plus the project's test runner and coverage command.
+
+## Limitations
+
+Coverage thresholds come from the project's own configuration; the agent does not choose them. It cannot judge test quality beyond what the runner reports.
+
+## Troubleshooting
+
+- Problem: A new test passes before any code is written. Fix: Make the test assert the new behaviour specifically; a test that passes early is not yet testing it.
+- Problem: a required tool is missing or a command fails with an error. Fix: say so in the report, do not guess the result, and name the command that failed.
+
+## Examples
+
+```text
+Use the ecc-tdd-guide agent to add a discount rule: write the failing test, make it pass, then refactor.
+```
+
+## Instructions
+
+Follow the process above in order. Validate each claim against the code before reporting it, report errors and invalid input you hit, and finish with a short verification statement: what was checked and what was not.
+
+<!-- source: github.com/affaan-m/ECC agents/ @b38be6a (MIT, Copyright (c) 2026 Affaan Mustafa; see THIRD_PARTY/ECC-LICENSE). Modified: ecc- prefix, "PROACTIVELY" and "MUST BE USED" removed from descriptions, model pin set, metadata and standard sections added. Scanned for this kit: see SECURITY-SCAN.md -->
