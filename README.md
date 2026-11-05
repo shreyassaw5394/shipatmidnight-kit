@@ -31,7 +31,8 @@ Skills and agents are namespaced by the plugin, e.g. `shipatmidnight-kit:securit
 
 | Skill | What it does |
 |---|---|
-| `studio-playbook` | Loads the operating rules (PLAYBOOK.md) at the start of builds, releases and installs. |
+| `studio-playbook` | Loads the operating rules (PLAYBOOK.md, including "Saving tokens with GSD") at the start of builds, releases and installs. |
+| `token-economy` | Lean multi-agent and GSD runs: 2-3 agents, model per task, short prompts, scoped tests, short reports, a safe parallel-commit recipe, resume after a usage limit. |
 | `product-site-design` | Design-first process for any site or UI: the product is the hero, restraint, real material, and the gates every page passes. |
 | `ui-style-picker` | Names a visual style before building, writes a six-line style spec, checks contrast per style. Includes a contrast checker script. |
 | `apple-motion` | Fluid, physical interface motion for the web (springs, gestures, interruptible transitions, reduced motion). |

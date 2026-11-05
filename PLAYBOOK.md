@@ -70,3 +70,17 @@ If you use GSD, its "balanced" profile follows the same idea: the strongest mode
 ## 10. Every repo gets a face
 
 Every repo and README gets an original logo and at least one intro image, generated for that project in its own style (an SVG mark, and an image rendered from HTML at a known size). No stock art, no other brands' marks, no AI-made images that imitate a real company's look.
+
+## 11. Saving tokens with GSD
+
+Usage limits stop every running agent at once, so run lean by default. The `token-economy` skill has the rules for any multi-agent work; these are the GSD-specific settings and habits (GSD is linked in the README, v1.20.4).
+
+- **Mode and profile**: set `yolo` mode (no approval prompt at every step) and the `balanced` profile (strongest model only for planning, middle for execution, research and verification, fastest for mapping). Use `/gsd:settings` and `/gsd:set-profile`. Drop to `budget` when a limit is close.
+- **Batch small plans**: fold one-file or config-only plans into a single plan, or one executor, instead of one agent each. Keep waves to 2-3 parallel executors.
+- **One plan-check round**: let the plan checker run once, fix what it finds, and move on. Repeated check-and-revise loops cost more than the defects they catch; the first execution wave surfaces the rest.
+- **One conventions file per phase**: stack, style, commands, and a token-economy line. Executor prompts point at it instead of restating rules.
+- **Don't re-read all SUMMARYs**: an executor reads its plan, the conventions file, and only the one or two summaries it depends on. The orchestrator reads summaries once, at wave end, not per plan.
+- **Scoped tests**: executors run their own tests before each commit; the full suite and build run once per wave end.
+- **Short reports**: changed / unverified / owner decisions, nothing else.
+- **Parallel executors**: use the commit-lock and private-index recipe from the `token-economy` skill so commits cannot clobber each other.
+- **After a limit hit**: resume stopped agents by message; do not restart the phase.
